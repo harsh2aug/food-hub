@@ -1,70 +1,71 @@
 import RestaurantCard from "./RestaurantCard";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import Shimmer from "./Shimmer";
+import useRestaurantList from "../utils/useRestaurantList";
+import useOnlineStatus from "../utils/useOnlineStatus";
 const Body = () => {
-  const [resList, setResList] = useState([]);
   const [filterResList, setFilterResList] = useState([]);
   const [searchValue, setSearchValue] = useState("");
+  const restaurant = useRestaurantList();
+  const onlineStatus = useOnlineStatus();
 
-  console.log("body rendered");
-  const fetchData = async () => {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.993758&lng=77.6822442&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+  if (onlineStatus == false)
+    return (
+      <h1>“Oops! You seem to be offline. Please reconnect to the internet.”</h1>
     );
-    const json = await data.json();
-    setResList(
-      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
-    setFilterResList(
-      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
-  };
-  useEffect(() => {
-    fetchData();
-  }, []);
-  // if (resList.length == 0) {
-  //   return <Shimmer />;
-  // }
-  return resList.length == 0 ? (
-    <Shimmer />
-  ) : (
-    <div className="body">
-      <div className="filter">
-        <div className="search">
+  return (
+    <div className="page-body">
+      <div className="filter-bar">
+        <div className="search-box-wrapper">
           <input
-            className="search-box"
+            className="search-input"
+            placeholder="Search restaurants..."
             value={searchValue}
-            onChange={(e) => {
-              setSearchValue(e.target.value);
-            }}
+            onChange={(e) => setSearchValue(e.target.value)}
           />
+
           <button
             onClick={() => {
-              let filterList = resList.filter((res) =>
+              const filterList = resList.filter((res) =>
                 res.info.name.toLowerCase().includes(searchValue.toLowerCase())
               );
               setFilterResList(filterList);
             }}
-            className="search-btn"
+            className="btn search-btn"
           >
             Search
           </button>
         </div>
+
         <button
-          className="filter-btn"
+          className="btn filter-btn"
           onClick={() => {
-            let filterList = resList.filter((x) => x.info.avgRating > 4.3);
-            setResList(filterList);
+            const filterList = restaurant.filter((x) => x.info.avgRating > 4.3);
+            setFilterResList(filterList);
           }}
         >
-          Top Rating Restaurant
+          ⭐ Top Rated
         </button>
       </div>
-      <div className="card-container">
-        {(filterResList.length ? filterResList : resList).map((restaurant) => (
-          <RestaurantCard key={restaurant.info.id} resData={restaurant} />
-        ))}
-      </div>
+
+      {restaurant.length === 0 ? (
+        <Shimmer />
+      ) : (
+        <div className="card-grid">
+          {(filterResList.length ? filterResList : restaurant).map(
+            (restaurant) => (
+              <Link
+                to={"/restaurant/" + restaurant.info.id}
+                key={restaurant.info.id}
+                className="card-link"
+              >
+                <RestaurantCard resData={restaurant} />
+              </Link>
+            )
+          )}
+        </div>
+      )}
     </div>
   );
 };
