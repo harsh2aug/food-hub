@@ -27,7 +27,7 @@ const Body = () => {
 
           <button
             onClick={() => {
-              const filterList = resList.filter((res) =>
+              const filterList = restaurant.filter((res) =>
                 res.info.name.toLowerCase().includes(searchValue.toLowerCase())
               );
               setFilterResList(filterList);
