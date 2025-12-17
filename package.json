@@ -8,11 +8,6 @@
     "build": "parcel build index.html",
     "test": "jest --watch=false"
   },
-  "targets": {
-    "default": {
-      "distDir": "./output"
-    }
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/harsh2aug/food-hub.git"

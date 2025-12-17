@@ -1,5 +1,10 @@
+[build]
+  command = "CI='' npm run build"
+  publish = "dist"
+  base ="/"
+  image = "noble"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-  conditions = { Accept = "text/html" }
