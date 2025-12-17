@@ -60,6 +60,7 @@ const About = () => {
             "CSS3",
             "Git & GitHub",
             "REST APIs",
+            "JEST",
           ].map((skill) => (
             <span
               key={skill}
