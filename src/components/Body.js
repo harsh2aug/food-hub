@@ -39,7 +39,6 @@ const Body = () => {
 
   return (
     <div className="container mx-auto px-4">
-      {/* Search + Filters */}
       <div className="flex flex-wrap items-center gap-3 my-6">
         <input
           className="border border-slate-300 p-2 rounded-lg w-60 focus:outline-none focus:ring-2 focus:ring-amber-400"
