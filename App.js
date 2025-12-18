@@ -22,9 +22,11 @@ const AppLayout = () => {
   return (
     <Provider store={appStore}>
       <UserContext.Provider value={{ user, setUser }}>
-        <div>
+        <div className="min-h-screen flex flex-col">
           <Header />
-          <Outlet />
+          <main className="grow">
+            <Outlet />
+          </main>
           <Footer />
         </div>
       </UserContext.Provider>

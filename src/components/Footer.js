@@ -4,19 +4,16 @@ const Footer = () => {
   return (
     <footer className="bg-white border-t border-slate-200 shadow-sm py-6 mt-12">
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-        {/* Copyright Text */}
         <p className="text-sm text-slate-700">
           Created with 💗 by{" "}
           <span className="font-semibold text-slate-800">Harsh Bamaniya</span> ©
           2025
         </p>
 
-        {/* Branding */}
         <div className="text-xl font-extrabold text-slate-800 tracking-tight">
           Food<span className="text-amber-600">Hub</span>
         </div>
 
-        {/* Social Icons */}
         <div className="flex gap-6 text-amber-600 text-lg">
           <a
             href="https://github.com/harsh2aug"
