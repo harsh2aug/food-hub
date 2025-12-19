@@ -50,3 +50,5 @@
 git clone https://github.com/harsh2aug/food-hub.git
 cd food-hub
 ```
+
+- CI/CD tools: CircleCI, Sonar, Git, Kubernetes, AWS.

@@ -16,11 +16,15 @@ const Body = () => {
 
   if (!onlineStatus) {
     return (
-      <h1 className="text-center text-xl font-semibold text-red-600 mt-10">
-        Oops! You seem to be offline. Please reconnect to the internet.
+      <h1
+        className="text-center text-xl font-semibold mt-16
+        text-red-600 dark:text-red-400"
+      >
+        🚫 You’re offline. Please check your internet connection.
       </h1>
     );
   }
+
   const PromotedLabelCard = withPromotedLabel(RestaurantCard);
 
   const handleSearch = () => {
@@ -38,42 +42,89 @@ const Body = () => {
   const listToRender = filterResList.length ? filterResList : restaurant;
 
   return (
-    <div className="container mx-auto px-4">
-      <div className="flex flex-wrap items-center gap-3 my-6">
-        <input
-          className="border border-slate-300 p-2 rounded-lg w-60 focus:outline-none focus:ring-2 focus:ring-amber-400"
-          placeholder="Search restaurants..."
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-        />
-
-        <button
-          className="bg-amber-500 text-white px-4 py-2 rounded-lg shadow hover:bg-amber-600 transition"
-          onClick={handleSearch}
+    <main
+      className="
+      min-h-screen
+      bg-slate-50 dark:bg-slate-950
+      transition-colors
+    "
+    >
+      <div className="max-w-7xl mx-auto px-6">
+        <div
+          className="
+          flex flex-wrap gap-4 items-center
+          py-8
+        "
         >
-          Search
-        </button>
+          <input
+            className="
+              w-64 px-3 py-2 rounded-lg
+              border border-slate-300
+              bg-white text-slate-700
+              focus:ring-2 focus:ring-amber-400
+              focus:outline-none
+              dark:bg-slate-900 dark:text-slate-200
+              dark:border-slate-700
+            "
+            placeholder="Search restaurants..."
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+          />
 
-        <button
-          className="bg-emerald-500 text-white px-4 py-2 rounded-lg shadow hover:bg-emerald-600 transition"
-          onClick={handleTopRated}
-        >
-          ⭐ Top Rated
-        </button>
-        <input
-          className="border border-slate-300 p-2 rounded-lg w-60 focus:outline-none focus:ring-2 focus:ring-amber-400"
-          placeholder="Change Username"
-          value={user.name}
-          onChange={(e) => setUser({ ...user, name: e.target.value })}
-        />
-      </div>
+          <button
+            onClick={handleSearch}
+            className="
+              px-4 py-2 rounded-lg
+              bg-amber-500 text-white
+              hover:bg-amber-600
+              transition shadow
+            "
+          >
+            Search
+          </button>
 
-      {restaurant.length === 0 ? (
-        <Shimmer />
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {listToRender.map((restaurant, index) => {
-            return (
+          <button
+            onClick={handleTopRated}
+            className="
+              px-4 py-2 rounded-lg
+              bg-emerald-500 text-white
+              hover:bg-emerald-600
+              transition shadow
+            "
+          >
+            ⭐ Top Rated
+          </button>
+
+          <input
+            className="
+              w-60 px-3 py-2 rounded-lg
+              border border-slate-300
+              bg-white text-slate-700
+              focus:ring-2 focus:ring-amber-400
+              focus:outline-none
+              dark:bg-slate-900 dark:text-slate-200
+              dark:border-slate-700
+            "
+            placeholder="Change Username"
+            value={user.name}
+            onChange={(e) => setUser({ ...user, name: e.target.value })}
+          />
+        </div>
+
+        {restaurant.length === 0 ? (
+          <Shimmer />
+        ) : (
+          <div
+            className="
+            grid gap-6
+            grid-cols-1
+            sm:grid-cols-2
+            md:grid-cols-3
+            lg:grid-cols-4
+            pb-16
+          "
+          >
+            {listToRender.map((restaurant) => (
               <Link
                 to={`/restaurant/${restaurant.info.id}`}
                 key={restaurant.info.id}
@@ -85,11 +136,11 @@ const Body = () => {
                   <RestaurantCard resData={restaurant} />
                 )}
               </Link>
-            );
-          })}
-        </div>
-      )}
-    </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </main>
   );
 };
 

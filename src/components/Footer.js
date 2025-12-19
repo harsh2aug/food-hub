@@ -2,25 +2,28 @@ import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-white border-t border-slate-200 shadow-sm py-6 mt-12">
-      <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-        <p className="text-sm text-slate-700">
-          Created with 💗 by{" "}
-          <span className="font-semibold text-slate-800">Harsh Bamaniya</span> ©
-          2025
+    <footer className="border-t bg-white text-slate-700 border-slate-200 dark:bg-slate-900 dark:text-slate-300 dark:border-slate-700 transition-colors">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-6">
+        <p className="text-sm text-center md:text-left">
+          Created with <span className="text-red-500">❤</span> by{" "}
+          <span className="font-semibold text-slate-900 dark:text-slate-100">
+            Harsh Bamaniya
+          </span>{" "}
+          © 2025
         </p>
 
-        <div className="text-xl font-extrabold text-slate-800 tracking-tight">
-          Food<span className="text-amber-600">Hub</span>
+        <div className="text-2xl font-extrabold tracking-tight">
+          Food
+          <span className="text-amber-600">Hub</span>
         </div>
 
-        <div className="flex gap-6 text-amber-600 text-lg">
+        <div className="flex gap-6 text-xl">
           <a
             href="https://github.com/harsh2aug"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
-            className="hover:text-amber-700 transition"
+            className="text-slate-600 hover:text-red-600 dark:text-slate-400 dark:hover:text-red-400 transition"
           >
             <FaGithub />
           </a>
@@ -29,7 +32,7 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
-            className="hover:text-amber-700 transition"
+            className="text-slate-600 hover:text-red-600 dark:text-slate-400 dark:hover:text-red-400 transition"
           >
             <FaLinkedin />
           </a>
@@ -38,7 +41,7 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Twitter"
-            className="hover:text-amber-700 transition"
+            className="text-slate-600 hover:text-red-600 dark:text-slate-400 dark:hover:text-red-400 transition"
           >
             <FaTwitter />
           </a>

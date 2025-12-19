@@ -4,6 +4,8 @@ import { LOGO_URL } from "../utils/constants";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import UserContext from "../utils/UserContext";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { changeTheme } from "../store/themeSlice";
 
 const Header = () => {
   const [loginBtn, setLoginBtn] = useState("Login");
@@ -11,6 +13,11 @@ const Header = () => {
   const onlineStatus = useOnlineStatus();
   const cartItems = useSelector((state) => state.cart.items);
   const { user } = useContext(UserContext);
+  const dispatch = useDispatch();
+  const theme = useSelector((state) => state.appTheme.theme);
+  const handleTheme = () => {
+    dispatch(changeTheme());
+  };
 
   const toggleLogin = () => {
     setLoginBtn((prev) => (prev === "Login" ? "Logout" : "Login"));
@@ -19,169 +26,135 @@ const Header = () => {
   const toggleMenu = () => setMenuOpen((prev) => !prev);
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-md border-b border-slate-200">
+    <header
+      className="
+  sticky top-0 z-50 shadow-md border-b transition-colors
+  bg-white border-slate-200 text-slate-800
+  dark:bg-slate-900 dark:border-slate-700 dark:text-slate-100
+"
+    >
       <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-        {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
           <img
             src={LOGO_URL}
             alt="Food App Logo"
             className="w-12 h-12 object-contain"
           />
-          <span className="text-xl font-extrabold text-slate-800 tracking-tight">
-            Food<span className="text-amber-600">Hub</span>
+          <span className="text-xl font-extrabold tracking-tight">
+            Food
+            <span className="text-amber-600">Hub</span>
           </span>
         </Link>
 
-        {/* Hamburger button for small screens */}
         <button
           onClick={toggleMenu}
-          className="md:hidden p-2 rounded-md text-slate-700 hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-500"
-          aria-label="Toggle menu"
+          className="
+        md:hidden p-2 rounded-md
+        text-slate-700 hover:bg-amber-100
+        dark:text-slate-200 dark:hover:bg-slate-800
+        focus:outline-none focus:ring-2 focus:ring-amber-500
+      "
         >
-          {/* Icon: Hamburger or Close */}
-          {menuOpen ? (
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          ) : (
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          )}
+          {menuOpen ? "✖" : "☰"}
         </button>
 
-        {/* Nav Links */}
         <nav
-          className={`flex-col md:flex-row md:flex md:items-center gap-6 text-sm md:text-base font-medium text-slate-700
-            ${
-              menuOpen
-                ? "flex absolute top-full left-0 w-full bg-white border-t border-slate-200 shadow-md md:static md:shadow-none md:border-none p-4 md:p-0"
-                : "hidden md:flex"
-            }
-          `}
+          className={`
+        flex-col md:flex-row md:items-center gap-6
+        text-sm md:text-base font-medium
+        text-slate-700 dark:text-slate-200
+
+        ${
+          menuOpen
+            ? "flex absolute top-full left-0 w-full p-4 shadow-md " +
+              "bg-white border-t border-slate-200 " +
+              "dark:bg-slate-900 dark:border-slate-700"
+            : "hidden md:flex"
+        }
+      `}
         >
-          {/* Online status */}
-          <div
-            className="flex items-center mb-4 md:mb-0"
-            title={onlineStatus ? "You are online" : "You are offline"}
-          >
+          <div className="flex items-center gap-2">
             <span
               className={`w-2.5 h-2.5 rounded-full ${
                 onlineStatus ? "bg-green-500" : "bg-red-500"
               }`}
             />
-            <span className="ml-2 text-sm md:hidden">
+            <span className="md:hidden">
               {onlineStatus ? "Online" : "Offline"}
             </span>
           </div>
 
-          {[
-            { to: "/", label: "Home" },
-            { to: "/about", label: "About" },
-            { to: "/contact", label: "Contact" },
-          ].map((item) => (
+          {["/", "/about", "/contact"].map((path, i) => (
             <NavLink
-              key={item.to}
-              to={item.to}
-              onClick={() => setMenuOpen(false)} // close menu on nav click
+              key={path}
+              to={path}
+              onClick={() => setMenuOpen(false)}
               className={({ isActive }) =>
-                `block md:inline transition hover:text-amber-600 text-lg ${
+                `text-lg transition hover:text-amber-600 ${
                   isActive ? "text-amber-600 font-semibold" : ""
                 }`
               }
             >
-              {item.label}
+              {["Home", "About", "Contact"][i]}
             </NavLink>
           ))}
 
-          {/* Cart */}
           <Link
             to="/cart"
+            className="relative text-lg"
             onClick={() => setMenuOpen(false)}
-            className="relative flex items-center text-lg hover:text-amber-600 transition"
           >
             🛒
             {cartItems.length > 0 && (
               <span
                 className="
-                  absolute 
-                  -top-2 -right-3
-                  bg-amber-600 
-                  text-white 
-                  text-xs 
-                  font-bold 
-                  w-5 h-5 
-                  flex items-center justify-center 
-                  rounded-full
-                "
+            absolute -top-2 -right-3 w-5 h-5
+            bg-amber-600 text-white text-xs
+            rounded-full flex items-center justify-center
+          "
               >
                 {cartItems.length}
               </span>
             )}
           </Link>
 
-          {/* Login Button */}
           <button
-            onClick={() => {
-              toggleLogin();
-              setMenuOpen(false);
-            }}
+            onClick={() => dispatch(changeTheme())}
+            aria-label="Toggle theme"
             className="
-              px-4 py-1.5 
-              rounded-lg 
-              bg-amber-500 
-              text-white 
-              hover:bg-amber-600 
-              transition 
-              shadow-sm
-              text-sm
-              mt-4 md:mt-0
-              w-full md:w-auto
-            "
+          w-9 h-9 rounded-full border flex items-center justify-center
+          bg-slate-100 text-slate-700 border-slate-300
+          hover:bg-slate-200
+          dark:bg-slate-800 dark:text-slate-200 dark:border-slate-600
+          dark:hover:bg-slate-700
+          transition
+        "
+          >
+            {theme === "light" ? "🌙" : "☀️"}
+          </button>
+
+          <button
+            onClick={toggleLogin}
+            className="
+          px-4 py-1.5 rounded-lg
+          bg-amber-500 text-white hover:bg-amber-600
+          transition shadow-sm text-sm
+        "
           >
             {loginBtn}
           </button>
 
-          {/* User name */}
           {user?.name && (
-            <Link
-              to="/about"
-              onClick={() => setMenuOpen(false)}
+            <span
               className="
-                hidden md:inline-block
-                px-3 py-1 
-                bg-slate-100 
-                rounded-full 
-                text-slate-700 
-                text-md 
-                font-semibold
-              "
+          hidden md:inline-block
+          px-3 py-1 rounded-full
+          bg-slate-100 text-slate-700
+          dark:bg-slate-800 dark:text-slate-200
+        "
             >
               👋 {user.name}
-            </Link>
+            </span>
           )}
         </nav>
       </div>

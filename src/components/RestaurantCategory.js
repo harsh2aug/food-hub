@@ -25,23 +25,26 @@ const RestaurantCategory = ({ data = [] }) => {
           <li
             key={id}
             className="
-              bg-white rounded-xl
-              border border-slate-200
+              bg-white dark:bg-slate-800
+              rounded-xl
+              border border-slate-200 dark:border-slate-700
               shadow-sm hover:shadow-md
               transition p-4
             "
           >
             <div className="flex justify-between gap-6">
               <div className="flex-1">
-                <h4 className="font-semibold text-slate-800 text-lg">{name}</h4>
+                <h4 className="font-semibold text-slate-800 dark:text-slate-100 text-lg">
+                  {name}
+                </h4>
 
                 {description && (
-                  <p className="text-sm text-slate-500 mt-1 leading-relaxed">
+                  <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
                     {description}
                   </p>
                 )}
 
-                <p className="text-amber-700 font-bold mt-2">
+                <p className="text-amber-700 dark:text-amber-400 font-bold mt-2">
                   ₹ {finalPrice.toFixed(2)}
                 </p>
               </div>
@@ -57,7 +60,8 @@ const RestaurantCategory = ({ data = [] }) => {
                   <div
                     className="
                       absolute -bottom-2
-                      bg-white border border-slate-300
+                      bg-white dark:bg-slate-700
+                      border border-slate-300 dark:border-slate-600
                       rounded-lg shadow-md
                       flex items-center
                       px-2 py-1
@@ -67,9 +71,9 @@ const RestaurantCategory = ({ data = [] }) => {
                       <button
                         onClick={() => dispatch(addItem(info))}
                         className="
-                          text-amber-700 font-semibold
+                          text-amber-700 dark:text-amber-400 font-semibold
                           px-4 py-1 text-sm
-                          hover:text-white hover:bg-amber-700
+                          hover:text-white hover:bg-amber-700 dark:hover:bg-amber-600
                           rounded-md transition
                         "
                       >
@@ -79,18 +83,18 @@ const RestaurantCategory = ({ data = [] }) => {
                       <div className="flex items-center gap-3">
                         <button
                           onClick={() => dispatch(removeItem(info))}
-                          className="text-lg font-bold text-red-600"
+                          className="text-lg font-bold text-red-600 dark:text-red-500"
                         >
                           −
                         </button>
 
-                        <span className="font-semibold text-slate-700">
+                        <span className="font-semibold text-slate-700 dark:text-slate-300">
                           {quantity}
                         </span>
 
                         <button
                           onClick={() => dispatch(addItem(info))}
-                          className="text-lg font-bold text-green-600"
+                          className="text-lg font-bold text-green-600 dark:text-green-400"
                         >
                           +
                         </button>

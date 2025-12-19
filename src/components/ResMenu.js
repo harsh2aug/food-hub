@@ -41,8 +41,8 @@ const ResMenu = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-4">
-      <div className="bg-white rounded-2xl shadow-lg p-6 border border-slate-200 flex flex-col md:flex-row gap-6">
+    <div className="max-w-4xl mx-auto p-4 bg-gray-50 dark:bg-slate-700 min-h-screen">
+      <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-6 border border-slate-200 dark:border-slate-700 flex flex-col md:flex-row gap-6">
         <img
           src={CDN_URL + cloudinaryImageId}
           alt={name}
@@ -50,22 +50,28 @@ const ResMenu = () => {
         />
 
         <div className="flex-1">
-          <h2 className="text-3xl font-extrabold text-slate-800">{name}</h2>
+          <h2 className="text-3xl font-extrabold text-slate-800 dark:text-slate-100">
+            {name}
+          </h2>
 
-          <div className="mt-3 flex items-center gap-3 text-sm text-slate-600">
+          <div className="mt-3 flex items-center gap-3 text-sm text-slate-600 dark:text-slate-400">
             <span className="bg-amber-100 text-amber-700 px-3 py-1 rounded-lg font-medium">
               ⭐ {avgRating}
             </span>
-            <span className="text-slate-500">({totalRatingsString})</span>
-            <span className="text-slate-400">•</span>
+            <span className="text-slate-500 dark:text-slate-400">
+              ({totalRatingsString})
+            </span>
+            <span className="text-slate-400 dark:text-slate-600">•</span>
             <span>{sla?.slaString}</span>
-            <span className="text-slate-400">•</span>
+            <span className="text-slate-400 dark:text-slate-600">•</span>
             <span>{costForTwo}</span>
           </div>
 
-          <p className="text-slate-500 mt-2 text-sm">
+          <p className="text-slate-500 dark:text-slate-400 mt-2 text-sm">
             Outlet:{" "}
-            <span className="font-semibold text-slate-700">{locality}</span>
+            <span className="font-semibold text-slate-700 dark:text-slate-100">
+              {locality}
+            </span>
           </p>
 
           <p className="text-emerald-600 font-semibold mt-3">
@@ -75,7 +81,9 @@ const ResMenu = () => {
       </div>
 
       <div className="mt-10">
-        <h3 className="text-2xl font-bold text-slate-800 mb-4">Menu</h3>
+        <h3 className="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-4">
+          Menu
+        </h3>
 
         <ul className="space-y-4">
           {categories.map((group, idx) => {
@@ -86,21 +94,21 @@ const ResMenu = () => {
             return (
               <li
                 key={id}
-                className="bg-white rounded-xl border border-slate-200 shadow-sm"
+                className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm"
               >
                 <div
                   onClick={() => handleAccordions(id)}
-                  className="flex justify-between items-center p-4 cursor-pointer hover:bg-slate-50 transition rounded-xl"
+                  className="flex justify-between items-center p-4 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700 transition rounded-xl"
                 >
-                  <span className="text-lg font-semibold text-slate-800">
+                  <span className="text-lg font-semibold text-slate-800 dark:text-slate-100">
                     {title}{" "}
-                    <span className="text-slate-500 text-sm">
+                    <span className="text-slate-500 dark:text-slate-400 text-sm">
                       ({items?.length})
                     </span>
                   </span>
 
                   <span
-                    className={`text-xl text-slate-600 transition-transform duration-300 ${
+                    className={`text-xl text-slate-600 dark:text-slate-400 transition-transform duration-300 ${
                       openCategory === id ? "rotate-180" : ""
                     }`}
                   >
@@ -108,7 +116,7 @@ const ResMenu = () => {
                   </span>
                 </div>
                 {openCategory === id && (
-                  <div className="border-t border-slate-200 p-4">
+                  <div className="border-t border-slate-200 dark:border-slate-700 p-4">
                     <RestaurantCategory data={items} />
                   </div>
                 )}

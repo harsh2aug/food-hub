@@ -2,5 +2,4 @@
 /dist
 /.parcel-cache
 /output
-/src/components/__tests__/
 /coverage

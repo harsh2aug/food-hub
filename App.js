@@ -4,10 +4,10 @@ import Body from "./src/components/Body";
 import Contact from "./src/components/Contact";
 import ResMenu from "./src/components/ResMenu";
 import Error from "./src/components/Error";
-import { lazy, Suspense, useState } from "react";
+import { lazy, Suspense, useState, useEffect } from "react";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import UserContext from "./src/utils/UserContext";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import appStore from "./src/store/appStore";
 import Cart from "./src/components/Cart";
 import Footer from "./src/components/Footer";
@@ -19,18 +19,22 @@ const AppLayout = () => {
     name: "Harsh Bamaniya",
     email: "harsh@gmail.com",
   });
+  const theme = useSelector((state) => state.appTheme.theme);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+  }, [theme]);
+
   return (
-    <Provider store={appStore}>
-      <UserContext.Provider value={{ user, setUser }}>
-        <div className="min-h-screen flex flex-col">
-          <Header />
-          <main className="grow">
-            <Outlet />
-          </main>
-          <Footer />
-        </div>
-      </UserContext.Provider>
-    </Provider>
+    <UserContext.Provider value={{ user, setUser }}>
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <main className="grow dark:bg-slate-900">
+          <Outlet />
+        </main>
+        <Footer />
+      </div>
+    </UserContext.Provider>
   );
 };
 const appRouter = createBrowserRouter([
@@ -64,4 +68,8 @@ const appRouter = createBrowserRouter([
 ]);
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-root.render(<RouterProvider router={appRouter} />);
+root.render(
+  <Provider store={appStore}>
+    <RouterProvider router={appRouter} />
+  </Provider>
+);
