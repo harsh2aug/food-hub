@@ -15,9 +15,6 @@ const Header = () => {
   const { user } = useContext(UserContext);
   const dispatch = useDispatch();
   const theme = useSelector((state) => state.appTheme.theme);
-  const handleTheme = () => {
-    dispatch(changeTheme());
-  };
 
   const toggleLogin = () => {
     setLoginBtn((prev) => (prev === "Login" ? "Logout" : "Login"));
