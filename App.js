@@ -11,7 +11,6 @@ import { Provider, useSelector } from "react-redux";
 import appStore from "./src/store/appStore";
 import Cart from "./src/components/Cart";
 import Footer from "./src/components/Footer";
-import Parent from "./src/components/Practice/Parent";
 
 const Grocery = lazy(() => import("./src/components/Grocery"));
 const About = lazy(() => import("./src/components/About"));
@@ -63,7 +62,6 @@ const appRouter = createBrowserRouter([
       },
       { path: "/restaurant/:resId", element: <ResMenu /> },
       { path: "/cart", element: <Cart /> },
-      { path: "/practice-parent", element: <Parent /> },
     ],
     errorElement: <Error />,
   },
